@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/*
+  Rasla design tokens (source: design/tokens.json).
+  Use these names in classes: bg-teal-700, text-ink-muted, border-border,
+  bg-surface-alt, text-clay-600, bg-success-bg, rounded-lg, h-control ...
+  Spacing uses Tailwind's default 4px scale (p-4 = 16px = space-4).
+*/
+@theme {
+  /* Brand */
+  --color-teal-100: #E0F0EC;
+  --color-teal-200: #C5DED7;
+  --color-teal-600: #127365;
+  --color-teal-700: #0B5D52;
+  /* Text on teal backgrounds */
+  --color-on-teal: #D5ECE6;
+  --color-on-teal-muted: #BFE0D7;
+  /* Avatar accent */
+  --color-peach-100: #FFE3D8;
+  --color-peach-800: #8A2E12;
+  /* Customer chat bubble */
+  --color-bubble: #F1F4F3;
+  --color-teal-800: #084A41;
+  --color-teal-900: #073F38;
+  --color-mint-500: #3FA37A; /* charts and graphics only, never text */
+  --color-clay-600: #B8471F; /* "needs you" only, at most twice per screen */
+
+  /* Text */
+  --color-ink: #14201E;
+  --color-ink-muted: #4A5754;
+  --color-ink-subtle: #3E4B48;
+
+  /* Surfaces and lines */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F8F9F8;
+  --color-surface-page: #F6F7F5;
+  --color-border: #E6ECEA;
+  --color-border-strong: #DCE3E1;
+  --color-control-border: #8A9794;
+
+  /* Status (always paired with a word, never color alone) */
+  --color-success: #1F7A4D;
+  --color-success-bg: #E3F2EA;
+  --color-warning: #B54708;
+  --color-warning-bg: #FDF0E1;
+  --color-error: #B42318;
+  --color-error-bg: #FDE8E7;
+
+  /* Fonts (loaded in app/layout.tsx with next/font) */
+  --font-sans: var(--font-lexend), system-ui, sans-serif;
+  --font-arabic: var(--font-tajawal), system-ui, sans-serif;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Sizes */
+  --spacing-control: 44px;   /* h-control: buttons and inputs */
+  --spacing-sidebar: 264px;  /* w-sidebar */
+
+  --shadow-popover: 0 8px 24px rgba(20, 32, 30, 0.12);
+  --shadow-phone: 0 40px 80px rgba(0, 0, 0, 0.35);
+  --shadow-float: 0 20px 40px rgba(7, 63, 56, 0.3);
+  --shadow-preview: 0 30px 60px rgba(7, 63, 56, 0.12);
+  --shadow-lift: 0 30px 60px rgba(0, 0, 0, 0.25);
+
+  /* Category marquee: the track holds the list twice, so -50% loops seamlessly */
+  --animate-marquee: marquee 30s linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+/* Short screens (auth pages fit one screen): applied progressively */
+@custom-variant short (@media (max-height: 820px));
+@custom-variant shorter (@media (max-height: 720px));
+@custom-variant shortest (@media (max-height: 640px));
+
+/* Scrollable area without a visible scrollbar (last-resort internal scroll) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+html {
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Cursor: only real controls show the pointer; text stays selectable but keeps the arrow */
+@layer base {
+  body {
+    cursor: default;
+  }
+  button,
+  [role="button"],
+  summary,
+  a {
+    cursor: pointer;
+  }
+}
+
+/* Arabic text: Tajawal, 1px larger, taller lines */
+:lang(ar) {
+  font-family: var(--font-arabic);
+  line-height: 1.75;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal-700);
+  outline-offset: 2px;
+}
